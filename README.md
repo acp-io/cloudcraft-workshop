@@ -12,10 +12,22 @@ Build a modern task manager, deploy it to AWS, and add AI superpowers — all in
 
 Before you begin, make sure the following are installed on your machine:
 
-- **Node.js 20+** — [nodejs.org](https://nodejs.org/) (verify with `node --version`)
-- **Pulumi CLI** — Install with: `curl -fsSL https://get.pulumi.com | sh` (verify with `pulumi version`)
-- **GitHub CLI** — Install with: `sudo apt install gh` or `brew install gh` (verify with `gh --version`)
+- **Node.js 20+** — verify with `node --version`
+- **Pulumi CLI** — verify with `pulumi version`
+- **GitHub CLI** — verify with `gh --version`
 - **AWS credentials** — Your EC2 instance already has these via its IAM role. Verify with: `aws sts get-caller-identity`
+
+### EC2 Quick Setup
+
+You're on an Amazon Linux 2023 EC2 instance, run the setup script to install all prerequisites at once:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+source ~/.bashrc
+```
+
+The script installs Node.js 20 (via nvm), Pulumi CLI, and GitHub CLI. It's safe to re-run — it skips tools that are already installed.
 
 ---
 
