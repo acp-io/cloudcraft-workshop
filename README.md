@@ -52,16 +52,13 @@ gh repo clone <your-username>/cloudcraft-workshop
 cd cloudcraft-workshop
 ```
 
-### 3. Install dependencies and start the app
+### 3. Install dependencies
 
 ```bash
 npm install
-npm run dev
 ```
 
-### 4. Open the app
-
-Go to [http://localhost:3000](http://localhost:3000) in your browser. You should see the TaskFlow app — try adding, completing, and deleting some tasks. Right now everything is stored in your browser's localStorage.
+You're all set — jump into Exercise 1 to deploy the app to AWS.
 
 ---
 
