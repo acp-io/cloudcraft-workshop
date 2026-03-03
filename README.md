@@ -1,19 +1,75 @@
 # CloudCraft Workshop — TaskFlow
 
-Build a modern task manager and deploy it to AWS with AI superpowers.
+Build a modern task manager, deploy it to AWS, and add AI superpowers — all in about an hour.
 
-## Quick Start (Local)
+## What You'll Build
+
+**TaskFlow** is a sleek to-do app. You'll start with a working local version, then progressively add cloud infrastructure and AI features through three guided exercises.
+
+---
+
+## Prerequisites
+
+Before you begin, make sure the following are installed on your machine:
+
+- **Node.js 20+** — [nodejs.org](https://nodejs.org/) (verify with `node --version`)
+- **Pulumi CLI** — Install with: `curl -fsSL https://get.pulumi.com | sh` (verify with `pulumi version`)
+- **GitHub CLI** — Install with: `sudo apt install gh` or `brew install gh` (verify with `gh --version`)
+- **AWS credentials** — Your EC2 instance already has these via its IAM role. Verify with: `aws sts get-caller-identity`
+
+---
+
+## Getting Started
+
+### 1. Authenticate with GitHub
+
+This lets you clone your fork and push changes from your EC2 instance:
+
+```bash
+gh auth login
+```
+
+Follow the prompts: select **GitHub.com**, choose **HTTPS**, and authenticate via **browser**. You'll get a one-time code to enter at [github.com/login/device](https://github.com/login/device).
+
+### 2. Fork and clone the repo
+
+Go to the workshop repo on GitHub and click **Fork**. Then clone your fork:
+
+```bash
+gh repo clone <your-username>/cloudcraft-workshop
+cd cloudcraft-workshop
+```
+
+### 3. Install dependencies and start the app
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — your to-do app is running locally with localStorage.
+### 4. Open the app
+
+Go to [http://localhost:3000](http://localhost:3000) in your browser. You should see the TaskFlow app — try adding, completing, and deleting some tasks. Right now everything is stored in your browser's localStorage.
 
 ---
 
 ## Exercise 1: Deploy to AWS (~20 min)
+
+**Goal:** Move your app from localhost to the cloud. You'll deploy a real backend with a database, serverless API, and a globally distributed frontend.
+
+### What you'll get
+
+| Service | What it does |
+|---------|-------------|
+| **DynamoDB** | Stores your tasks in a cloud database |
+| **Lambda** | Runs your API code without managing servers |
+| **API Gateway** | Gives your Lambda function a public URL |
+| **S3** | Hosts your frontend files (HTML, CSS, JS) |
+| **CloudFront** | CDN that serves your app fast, worldwide |
+
+### Steps
+
+**Step 1** — Merge the exercise branch and install new dependencies:
 
 ```bash
 git fetch origin
@@ -21,59 +77,141 @@ git merge origin/exercise-1
 npm install
 ```
 
-**Walk-through:**
-1. Explore `infra/index.ts` — each AWS resource is explained
-2. Explore `src/lambda/handler.ts` — your serverless API
-3. Deploy: `cd infra && npm install && pulumi up`
-4. Visit the CloudFront URL from the stack outputs
+**Step 2** — Explore what changed. Open these files and read through them:
 
-**What you'll deploy:**
-- DynamoDB table for storing tasks
-- Lambda function running your API
-- API Gateway routing HTTP requests
-- S3 bucket hosting your frontend
-- CloudFront CDN serving everything globally
+- `infra/index.ts` — The Pulumi program that defines all your AWS resources. Each section has a comment explaining what it does and why.
+- `src/lambda/handler.ts` — Your serverless API. It handles GET/POST/PUT/DELETE requests for todos.
+- `src/hooks/useTodos.ts` — Compare with the previous version — it now fetches from an API instead of localStorage.
+
+**Step 3** — Build the Lambda function:
+
+```bash
+cd src/lambda
+npm install
+npm run build
+cd ../..
+```
+
+**Step 4** — Build the frontend for static hosting:
+
+```bash
+npm run build
+```
+
+This creates an `out/` folder with your static site.
+
+**Step 5** — Set up Pulumi and deploy everything to AWS:
+
+```bash
+cd infra
+npm install
+pulumi login --local
+pulumi stack init dev
+pulumi up
+```
+
+Pulumi will show you all the resources it wants to create. Review them, then confirm with **yes**. This takes a few minutes.
+
+**Step 6** — Visit your app! Copy the `siteUrl` from the Pulumi outputs — your app is now live on the internet.
 
 ---
 
 ## Exercise 2: AI Chatbot (~20 min)
 
+**Goal:** Add an AI-powered chat assistant that knows about your tasks and can help you manage them.
+
+### What you'll get
+
+- A chat side panel alongside your to-do list
+- Streaming responses from Claude (via AWS Bedrock)
+- The AI knows about your current tasks and can help you organize them
+
+### Steps
+
+**Step 1** — Merge the exercise branch:
+
 ```bash
 git merge origin/exercise-2
 npm install
+```
+
+**Step 2** — Explore what changed:
+
+- `src/components/ChatPanel.tsx` — The chat UI with scrollable messages and input
+- `src/hooks/useChat.ts` — Handles sending messages and streaming the AI response
+- `src/lambda/handler.ts` — New `/chat` route that calls Claude via Bedrock. Notice the system prompt that includes your current tasks.
+- `src/components/TodoApp.tsx` — Now has a two-column layout with a chat toggle button
+
+**Step 3** — Rebuild and redeploy:
+
+```bash
+cd src/lambda && npm install && npm run build && cd ../..
+npm run build
 cd infra && pulumi up
 ```
 
-**What's added:**
-- Chat side panel with streaming AI responses
-- Claude via AWS Bedrock — context-aware assistant
-- Chat knows about your current tasks
-
-**Files to explore:**
-- `src/lambda/handler.ts` — the `/chat` route
-- `src/components/ChatPanel.tsx` — chat UI
-- `src/hooks/useChat.ts` — streaming logic
+**Step 4** — Open your CloudFront URL. Click "AI Chat" and ask the assistant about your tasks!
 
 ---
 
 ## Exercise 3: Smart AI Features (stretch, ~15 min)
 
+**Goal:** Make your app smarter — tasks automatically get categorized and prioritized by AI, and you can ask AI for task suggestions.
+
+### What you'll get
+
+- **Auto-categorize**: When you add a task, AI assigns a category (work, personal, shopping, health, learning) and priority (high, medium, low)
+- **Task suggestions**: A "Suggest Tasks" button that asks AI for related tasks
+- Color-coded badges for categories and priorities
+
+### Steps
+
+**Step 1** — Merge the exercise branch:
+
 ```bash
 git merge origin/exercise-3
+```
+
+**Step 2** — Explore what changed:
+
+- `src/types/todo.ts` — New `Priority` and `Category` types added to `Todo`
+- `src/lambda/handler.ts` — New `/categorize` and `/suggest` routes. Look at the system prompts — they use structured JSON output.
+- `src/components/CategoryBadge.tsx` & `PriorityBadge.tsx` — Color-coded badge components
+- `src/components/TodoApp.tsx` — "Suggest Tasks" button with inline suggestion cards
+
+**Step 3** — Rebuild and redeploy:
+
+```bash
+cd src/lambda && npm install && npm run build && cd ../..
+npm run build
 cd infra && pulumi up
 ```
 
-**What's added:**
-- Auto-categorization of new tasks (AI assigns category + priority)
-- "Suggest tasks" button for AI-powered recommendations
-- Category badges and priority indicators
+**Step 4** — Try adding a task like "Buy groceries for dinner" and watch it auto-categorize. Hit "Suggest Tasks" to see AI recommendations.
+
+---
+
+## Cleaning Up
+
+When you're done, tear down all AWS resources:
+
+```bash
+cd infra
+pulumi destroy
+```
 
 ---
 
 ## Tech Stack
 
-- **Next.js 14+** (App Router) + TypeScript
-- **Tailwind CSS** — dark theme with glass-morphism design
-- **Pulumi** — Infrastructure as Code (TypeScript)
-- **AWS** — DynamoDB, Lambda, API Gateway, S3, CloudFront, Bedrock
-- **Claude** — AI assistant via `@anthropic-ai/bedrock-sdk`
+| Technology | Role |
+|-----------|------|
+| **Next.js 14** (App Router) | Frontend framework |
+| **TypeScript** | Type-safe code |
+| **Tailwind CSS** | Styling (dark theme, glass-morphism) |
+| **Pulumi** | Infrastructure as Code |
+| **AWS DynamoDB** | NoSQL database |
+| **AWS Lambda** | Serverless compute |
+| **AWS API Gateway** | HTTP API routing |
+| **AWS S3 + CloudFront** | Static hosting + CDN |
+| **AWS Bedrock (Claude)** | AI assistant |
