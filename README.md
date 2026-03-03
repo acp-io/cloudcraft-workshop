@@ -4,7 +4,7 @@ Build a modern task manager, deploy it to AWS, and add AI superpowers — all in
 
 ## What You'll Build
 
-**TaskFlow** is a sleek to-do app. You'll start with a working local version, then progressively add cloud infrastructure and AI features through three guided exercises.
+**TaskFlow** is a sleek to-do app. You'll start with a working local version, then switch to exercise branches that add cloud infrastructure and AI features. Each exercise has TODO placeholders where you'll write real code.
 
 ---
 
@@ -69,54 +69,22 @@ Go to [http://localhost:3000](http://localhost:3000) in your browser. You should
 
 ### Steps
 
-**Step 1** — Merge the exercise branch and install new dependencies:
+**Step 1** — Switch to the exercise branch and install dependencies:
 
 ```bash
-git fetch origin
-git merge origin/exercise-1
+git checkout exercise-1
 npm install
 ```
 
-**Step 2** — Explore what changed. Open these files and read through them:
+**Step 2** — Explore the new files. Open these and read through them:
 
 - `infra/index.ts` — The Pulumi program that defines all your AWS resources. Each section has a comment explaining what it does and why.
 - `src/lambda/handler.ts` — Your serverless API. It handles GET/POST/PUT/DELETE requests for todos.
 - `src/hooks/useTodos.ts` — Compare with the previous version — it now fetches from an API instead of localStorage.
 
-**Step 3** — Build the Lambda function:
-
-```bash
-cd src/lambda
-npm install
-npm run build
-cd ../..
-```
-
-**Step 4** — Build the frontend for static hosting:
-
-```bash
-npm run build
-```
-
-This creates an `out/` folder with your static site.
-
-**Step 5** — Set up Pulumi and deploy everything to AWS:
-
-```bash
-cd infra
-npm install
-pulumi login --local
-pulumi stack init dev
-pulumi up
-```
-
-Pulumi will show you all the resources it wants to create. Review them, then confirm with **yes**. This takes a few minutes.
-
-**Step 6** — Visit your app! Copy the `siteUrl` from the Pulumi outputs — your app is now live on the internet.
-
 ### Your Turn — Code TODOs
 
-After merging, you'll find **3 TODO placeholders** where you need to write real code:
+**Step 3** — You'll find **3 TODO placeholders** where you need to write real code:
 
 | File | TODO | What to implement |
 |------|------|-------------------|
@@ -129,6 +97,37 @@ After merging, you'll find **3 TODO placeholders** where you need to write real 
 - For TODO #3: Look at `deleteTodo()` in the same file for the DynamoDB command pattern
 
 Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
+
+**Step 4** — Build the Lambda function:
+
+```bash
+cd src/lambda
+npm install
+npm run build
+cd ../..
+```
+
+**Step 5** — Build the frontend for static hosting:
+
+```bash
+npm run build
+```
+
+This creates an `out/` folder with your static site.
+
+**Step 6** — Set up Pulumi and deploy everything to AWS:
+
+```bash
+cd infra
+npm install
+pulumi login --local
+pulumi stack init dev
+pulumi up
+```
+
+Pulumi will show you all the resources it wants to create. Review them, then confirm with **yes**. This takes a few minutes.
+
+**Step 7** — Visit your app! Copy the `siteUrl` from the Pulumi outputs — your app is now live on the internet.
 
 ---
 
@@ -144,33 +143,23 @@ Complete all 3 TODOs before building and deploying. The hints in each TODO will 
 
 ### Steps
 
-**Step 1** — Merge the exercise branch:
+**Step 1** — Switch to the exercise branch and install dependencies:
 
 ```bash
-git merge origin/exercise-2
+git checkout exercise-2
 npm install
 ```
 
-**Step 2** — Explore what changed:
+**Step 2** — Explore the new files:
 
 - `src/components/ChatPanel.tsx` — The chat UI with scrollable messages and input
 - `src/hooks/useChat.ts` — Handles sending messages and streaming the AI response
 - `src/lambda/handler.ts` — New `/chat` route that calls Claude via Bedrock. Notice the system prompt that includes your current tasks.
-- `src/components/TodoApp.tsx` — Now has a two-column layout with a chat toggle button
-
-**Step 3** — Rebuild and redeploy:
-
-```bash
-cd src/lambda && npm install && npm run build && cd ../..
-npm run build
-cd infra && pulumi up
-```
-
-**Step 4** — Open your CloudFront URL. Click "AI Chat" and ask the assistant about your tasks!
+- `src/components/TodoApp.tsx` — Two-column layout with a chat toggle button
 
 ### Your Turn — Code TODOs
 
-After merging, you'll find **3 TODO placeholders** where you need to write real code:
+**Step 3** — You'll find **3 TODO placeholders** where you need to write real code:
 
 | File | TODO | What to implement |
 |------|------|-------------------|
@@ -184,6 +173,16 @@ After merging, you'll find **3 TODO placeholders** where you need to write real 
 - For TODO #3: `ChatPanel` is already imported; look at it in `src/components/ChatPanel.tsx` to see what props it needs
 
 Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
+
+**Step 4** — Rebuild and redeploy:
+
+```bash
+cd src/lambda && npm install && npm run build && cd ../..
+npm run build
+cd infra && pulumi up
+```
+
+**Step 5** — Open your CloudFront URL. Click "AI Chat" and ask the assistant about your tasks!
 
 ---
 
@@ -199,32 +198,22 @@ Complete all 3 TODOs before building and deploying. The hints in each TODO will 
 
 ### Steps
 
-**Step 1** — Merge the exercise branch:
+**Step 1** — Switch to the exercise branch:
 
 ```bash
-git merge origin/exercise-3
+git checkout exercise-3
 ```
 
-**Step 2** — Explore what changed:
+**Step 2** — Explore the new files:
 
 - `src/types/todo.ts` — New `Priority` and `Category` types added to `Todo`
 - `src/lambda/handler.ts` — New `/categorize` and `/suggest` routes. Look at the system prompts — they use structured JSON output.
 - `src/components/CategoryBadge.tsx` & `PriorityBadge.tsx` — Color-coded badge components
 - `src/components/TodoApp.tsx` — "Suggest Tasks" button with inline suggestion cards
 
-**Step 3** — Rebuild and redeploy:
-
-```bash
-cd src/lambda && npm install && npm run build && cd ../..
-npm run build
-cd infra && pulumi up
-```
-
-**Step 4** — Try adding a task like "Buy groceries for dinner" and watch it auto-categorize. Hit "Suggest Tasks" to see AI recommendations.
-
 ### Your Turn — Code TODOs
 
-After merging, you'll find **3 TODO placeholders** where you need to write real code:
+**Step 3** — You'll find **3 TODO placeholders** where you need to write real code:
 
 | File | TODO | What to implement |
 |------|------|-------------------|
@@ -237,6 +226,16 @@ After merging, you'll find **3 TODO placeholders** where you need to write real 
 - For TODO #3: Look at `addTodo()` in the same file for the fetch POST pattern
 
 Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
+
+**Step 4** — Rebuild and redeploy:
+
+```bash
+cd src/lambda && npm install && npm run build && cd ../..
+npm run build
+cd infra && pulumi up
+```
+
+**Step 5** — Try adding a task like "Buy groceries for dinner" and watch it auto-categorize. Hit "Suggest Tasks" to see AI recommendations.
 
 ---
 
