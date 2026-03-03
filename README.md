@@ -114,6 +114,22 @@ Pulumi will show you all the resources it wants to create. Review them, then con
 
 **Step 6** — Visit your app! Copy the `siteUrl` from the Pulumi outputs — your app is now live on the internet.
 
+### Your Turn — Code TODOs
+
+After merging, you'll find **3 TODO placeholders** where you need to write real code:
+
+| File | TODO | What to implement |
+|------|------|-------------------|
+| `infra/index.ts` | TODO #1 | Create the DynamoDB table resource (~5 lines) |
+| `infra/index.ts` | TODO #2 | Create the Lambda function resource (~14 lines) |
+| `src/lambda/handler.ts` | TODO #3 | Implement the `createTodo()` function body (~12 lines) |
+
+**Reference patterns:**
+- For TODO #1 & #2: Look at the S3 bucket resource in the same file for the Pulumi pattern
+- For TODO #3: Look at `deleteTodo()` in the same file for the DynamoDB command pattern
+
+Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
+
 ---
 
 ## Exercise 2: AI Chatbot (~20 min)
@@ -152,6 +168,23 @@ cd infra && pulumi up
 
 **Step 4** — Open your CloudFront URL. Click "AI Chat" and ask the assistant about your tasks!
 
+### Your Turn — Code TODOs
+
+After merging, you'll find **3 TODO placeholders** where you need to write real code:
+
+| File | TODO | What to implement |
+|------|------|-------------------|
+| `src/lambda/handler.ts` | TODO #1 | Build the `buildSystemPrompt()` function — inject task context into the AI prompt (~8 lines) |
+| `src/lambda/handler.ts` | TODO #2 | Call the Anthropic API and consume the streaming response in `chat()` (~12 lines) |
+| `src/components/TodoApp.tsx` | TODO #3 | Add chat toggle state, button, and `<ChatPanel>` render (~10 lines) |
+
+**Reference patterns:**
+- For TODO #1: The function signature and return type are there — you just need the body
+- For TODO #2: Look at `createTodo()` for the async/await pattern; the `anthropic` client is initialized at the top
+- For TODO #3: `ChatPanel` is already imported; look at it in `src/components/ChatPanel.tsx` to see what props it needs
+
+Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
+
 ---
 
 ## Exercise 3: Smart AI Features (stretch, ~15 min)
@@ -188,6 +221,22 @@ cd infra && pulumi up
 ```
 
 **Step 4** — Try adding a task like "Buy groceries for dinner" and watch it auto-categorize. Hit "Suggest Tasks" to see AI recommendations.
+
+### Your Turn — Code TODOs
+
+After merging, you'll find **3 TODO placeholders** where you need to write real code:
+
+| File | TODO | What to implement |
+|------|------|-------------------|
+| `src/lambda/handler.ts` | TODO #1 | Implement `categorize()` — call Claude to classify a task and parse the JSON response (~15 lines) |
+| `src/lambda/handler.ts` | TODO #2 | Implement `suggest()` — call Claude to suggest 3 new tasks based on existing ones (~15 lines) |
+| `src/hooks/useTodos.ts` | TODO #3 | Implement `suggestTodos()` — call the `/suggest` API endpoint from the frontend (~10 lines) |
+
+**Reference patterns:**
+- For TODO #1 & #2: Look at `chat()` in the same file for the Anthropic API call pattern (non-streaming this time)
+- For TODO #3: Look at `addTodo()` in the same file for the fetch POST pattern
+
+Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
 
 ---
 
