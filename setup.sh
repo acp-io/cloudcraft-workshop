@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Setup script for CloudCraft Workshop — Amazon Linux 2023 EC2 instances
-# Installs: Node.js 20 (via nvm), Pulumi CLI, GitHub CLI
+# Installs: Node.js 20 (via nvm), Pulumi CLI, GitHub CLI, GitHub Copilot CLI
 
 NODE_VERSION="20"
 GH_VERSION="2.67.0"
@@ -56,6 +56,15 @@ else
     green "✓ GitHub CLI $(gh --version | head -1) installed"
 fi
 
+# --- GitHub Copilot CLI ---
+if command -v copilot &>/dev/null; then
+    green "✓ GitHub Copilot CLI already installed"
+else
+    yellow "→ Installing GitHub Copilot CLI..."
+    npm install -g @github/copilot
+    green "✓ GitHub Copilot CLI installed"
+fi
+
 # --- Ensure PATH updates persist ---
 SHELL_RC="$HOME/.bashrc"
 
@@ -78,5 +87,6 @@ echo "  Node.js : $(node --version)"
 echo "  npm     : $(npm --version)"
 echo "  Pulumi  : $(pulumi version)"
 echo "  gh      : $(gh --version | head -1)"
+echo "  copilot : $(copilot --version 2>/dev/null || echo 'installed')"
 echo ""
 yellow "Run 'source ~/.bashrc' or open a new terminal to ensure paths are loaded."
