@@ -5,6 +5,7 @@ set -euo pipefail
 # Installs: Node.js 20 (via nvm), Pulumi CLI, GitHub CLI
 
 NODE_VERSION="20"
+GH_VERSION="2.67.0"
 
 green()  { printf '\033[0;32m%s\033[0m\n' "$*"; }
 yellow() { printf '\033[0;33m%s\033[0m\n' "$*"; }
@@ -42,14 +43,16 @@ else
     green "✓ Pulumi $(pulumi version) installed"
 fi
 
-# --- GitHub CLI ---
+# --- GitHub CLI (binary install, no sudo) ---
 if command -v gh &>/dev/null; then
     green "✓ GitHub CLI $(gh --version | head -1) already installed"
 else
-    yellow "→ Installing GitHub CLI..."
-    sudo dnf install -y 'dnf-command(config-manager)'
-    sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-    sudo dnf install -y gh
+    yellow "→ Installing GitHub CLI ${GH_VERSION}..."
+    GH_DIR="$HOME/.local/gh"
+    mkdir -p "$GH_DIR"
+    curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz" \
+        | tar -xz -C "$GH_DIR" --strip-components=1
+    export PATH="$GH_DIR/bin:$PATH"
     green "✓ GitHub CLI $(gh --version | head -1) installed"
 fi
 
@@ -63,6 +66,7 @@ add_line() {
 add_line 'export NVM_DIR="$HOME/.nvm"'
 add_line '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
 add_line 'export PATH="$HOME/.pulumi/bin:$PATH"'
+add_line 'export PATH="$HOME/.local/gh/bin:$PATH"'
 
 echo ""
 echo "============================================"
