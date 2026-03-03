@@ -1,0 +1,15 @@
+{
+  "name": "cloudcraft-workshop-infra",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.0.0",
+    "@pulumi/aws": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
