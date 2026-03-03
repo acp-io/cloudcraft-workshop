@@ -8,7 +8,7 @@
 - Styling: Tailwind CSS (dark theme, glass-morphism)
 - Infrastructure: Pulumi (TypeScript)
 - Cloud: AWS (DynamoDB, Lambda, API Gateway, S3, CloudFront, Bedrock)
-- AI SDK: @anthropic-ai/bedrock-sdk
+- AI SDK: @aws-sdk/client-bedrock-runtime
 
 ### Key Directories
 - `src/app/` — Next.js App Router pages and layouts

@@ -173,12 +173,12 @@ npm install
 | File | TODO | What to implement |
 |------|------|-------------------|
 | `src/lambda/handler.ts` | TODO #1 | Build the `buildSystemPrompt()` function — inject task context into the AI prompt (~8 lines) |
-| `src/lambda/handler.ts` | TODO #2 | Call the Anthropic API and consume the streaming response in `chat()` (~12 lines) |
+| `src/lambda/handler.ts` | TODO #2 | Call Claude via Bedrock and collect the streamed response in `chat()` (~3 lines) |
 | `src/components/TodoApp.tsx` | TODO #3 | Add chat toggle state, button, and `<ChatPanel>` render (~10 lines) |
 
 **Reference patterns:**
 - For TODO #1: The function signature and return type are there — you just need the body
-- For TODO #2: Look at `createTodo()` for the async/await pattern; the `anthropic` client is initialized at the top
+- For TODO #2: Look at `createTodo()` for the async/await pattern; the `invokeModelStream()` helper is defined at the top
 - For TODO #3: `ChatPanel` is already imported; look at it in `src/components/ChatPanel.tsx` to see what props it needs
 
 Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
@@ -226,12 +226,12 @@ git checkout exercise-3
 
 | File | TODO | What to implement |
 |------|------|-------------------|
-| `src/lambda/handler.ts` | TODO #1 | Implement `categorize()` — call Claude to classify a task and parse the JSON response (~15 lines) |
-| `src/lambda/handler.ts` | TODO #2 | Implement `suggest()` — call Claude to suggest 3 new tasks based on existing ones (~15 lines) |
+| `src/lambda/handler.ts` | TODO #1 | Implement `categorize()` — call Claude to classify a task and parse the JSON response (~10 lines) |
+| `src/lambda/handler.ts` | TODO #2 | Implement `suggest()` — call Claude to suggest 3 new tasks based on existing ones (~10 lines) |
 | `src/hooks/useTodos.ts` | TODO #3 | Implement `suggestTodos()` — call the `/suggest` API endpoint from the frontend (~10 lines) |
 
 **Reference patterns:**
-- For TODO #1 & #2: Look at `chat()` in the same file for the Anthropic API call pattern (non-streaming this time)
+- For TODO #1 & #2: Look at `chat()` for the `invokeModelStream()` pattern; use `invokeModel()` for non-streaming
 - For TODO #3: Look at `addTodo()` in the same file for the fetch POST pattern
 
 Complete all 3 TODOs before building and deploying. The hints in each TODO will guide you!
