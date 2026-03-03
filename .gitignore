@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Build
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Lambda
+src/lambda/node_modules/
+src/lambda/package-lock.json
+
+# Pulumi
+infra/node_modules/
+infra/package-lock.json
+
+# Claude Code personal settings
+.claude/settings.local.json

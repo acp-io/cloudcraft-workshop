@@ -1,0 +1,17 @@
+{
+  "name": "taskflow-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.600.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.0",
+    "typescript": "^5.5.0"
+  },
+  "scripts": {
+    "build": "esbuild handler.ts --bundle --platform=node --target=node20 --outfile=dist/handler.js --external:@aws-sdk/*"
+  }
+}
