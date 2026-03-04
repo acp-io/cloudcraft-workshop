@@ -16,16 +16,9 @@ This workshop has two phases. You'll build the **same app twice**, with the same
 
 ---
 
-## Prerequisites
+## Environment Setup
 
-- **Node.js 20+** — `node --version`
-- **Pulumi CLI** — `pulumi version`
-- **GitHub CLI** — `gh --version`
-- **GitHub Copilot CLI** — `copilot --version`
-- **AWS credentials** — `aws sts get-caller-identity`
-- **AWS Region** — Must be `eu-central-2` (Zurich). Set with: `pulumi config set aws:region eu-central-2`
-
-### EC2 Quick Setup
+Run the setup script to install all required tools (Node.js, Pulumi, GitHub CLI, Copilot CLI):
 
 ```bash
 bash ./setup.sh
@@ -47,9 +40,11 @@ Follow the prompts: select **GitHub.com**, choose **HTTPS**, and authenticate vi
 ### 2. Fork and clone the repo
 
 ```bash
-gh repo clone <your-username>/cloudcraft-workshop
+gh repo fork acp-io/cloudcraft-workshop --clone
 cd cloudcraft-workshop
 ```
+
+This creates a fork under your GitHub account and clones it locally.
 
 ### 3. Install dependencies
 
@@ -57,63 +52,51 @@ cd cloudcraft-workshop
 npm install
 ```
 
----
-
-## Phase 1: The Cowboy (~25 min)
-
-**Goal:** Build and deploy the task manager using AI, with no structured approach.
+### 4. Start the workshop
 
 ```bash
 git checkout phase-1
-npm install
 ```
 
-1. Read `REQUIREMENTS.md` — this is your product brief
-2. Open Copilot CLI: `copilot`
-3. Build the app using AI however you want
-4. Try to deploy it to AWS with Pulumi
-
-That's it. No rules, no guidance files. Go.
+Head over to the Phase 1 README for instructions.
 
 ---
 
-## Phase 2: The Engineer (~25 min)
+## Pulumi Basics
 
-**Goal:** Build the same app, from scratch, but this time with structure.
+This workshop uses **Pulumi** to deploy infrastructure to AWS. Pulumi is an Infrastructure as Code (IaC) tool — you define cloud resources in TypeScript, and Pulumi creates, updates, and deletes them on AWS for you.
+
+**Key concepts:**
+
+- **Stack** — an isolated deployment environment (e.g., `dev`). Each student has their own stack.
+- **State** — Pulumi tracks what resources exist so it can update them incrementally (add new ones, modify changed ones, remove deleted ones).
+- **`pulumi up`** — preview and deploy changes to AWS.
+- **`pulumi destroy`** — tear down all resources in the stack.
+
+**Common commands:**
 
 ```bash
-git checkout phase-2
+cd infra
 npm install
+pulumi login --local                       # Store state locally (no account needed)
+pulumi stack init dev                      # Create a new stack called 'dev'
+pulumi config set aws:region eu-central-2  # Set AWS region to Zurich
+pulumi up                                  # Deploy infrastructure
+pulumi destroy                             # Tear down everything
 ```
-
-1. Read `REQUIREMENTS.md` — same requirements as Phase 1
-2. Read `WORKFLOW.md` — your 3-step methodology
-3. Open Copilot CLI: `copilot`
-4. **Follow the workflow:** Understand → Plan → Build & Verify
-5. The AI now has project context (`.github/copilot-instructions.md`) — let it use it
-
-Notice the difference.
-
----
-
-## Wrap-Up Discussion
-
-After both phases, compare your experience:
-
-- Did your app deploy successfully in Phase 1? Phase 2?
-- How many back-and-forth iterations did you need each time?
-- What felt different about the structured approach?
-
-**Key insight:** The AI didn't get smarter between phases — you gave it better context and followed a better process.
 
 ---
 
 ## Cleaning Up
 
+When you're done with the workshop, destroy your AWS resources to avoid charges:
+
 ```bash
 cd infra
 pulumi destroy
 ```
+
+This removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket, CloudFront distribution) that Pulumi created. You'll be shown a preview of what will be deleted before confirming.
 
 ---
 
