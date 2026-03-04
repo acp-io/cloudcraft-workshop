@@ -2,17 +2,9 @@
 
 Build a cloud-based task manager on AWS — using AI as your coding partner.
 
-## What You'll Learn
+## What You'll Build
 
-This workshop has two phases. You'll build the **same app twice**, with the same AI tool, but with a very different approach:
-
-| | Phase 1: "The Cowboy" | Phase 2: "The Engineer" |
-|---|---|---|
-| **What you get** | Product requirements + tech hints | Same requirements + AI context files + structured workflow |
-| **How you work** | However you want | Following a 3-step methodology |
-| **Expected result** | Frustration, partial success | Cleaner code, faster progress |
-
-**The takeaway:** AI amplifies your process. Structure in, quality out.
+A **task management app** (TaskFlow) deployed to AWS — using AI as your coding partner. You'll learn how to use AI effectively for cloud development by building a full-stack serverless application.
 
 ---
 
@@ -52,13 +44,9 @@ This creates a fork under your GitHub account and clones it locally.
 npm install
 ```
 
-### 4. Start the workshop
+### 4. Start building
 
-```bash
-git checkout phase-1
-```
-
-Head over to the Phase 1 README for instructions.
+Follow the workshop instructions provided by your facilitator.
 
 ---
 
@@ -96,7 +84,7 @@ cd infra
 pulumi destroy
 ```
 
-This removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket, CloudFront distribution) that Pulumi created. You'll be shown a preview of what will be deleted before confirming.
+This removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket) that Pulumi created. You'll be shown a preview of what will be deleted before confirming.
 
 ---
 
@@ -111,5 +99,4 @@ This removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket, 
 | **AWS DynamoDB** | NoSQL database |
 | **AWS Lambda** | Serverless compute |
 | **AWS API Gateway** | HTTP API routing |
-| **AWS S3 + CloudFront** | Static hosting + CDN |
-| **GitHub Copilot CLI** | AI coding assistant |
+| **AWS S3** | Static website hosting |
