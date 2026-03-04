@@ -77,14 +77,17 @@ pulumi destroy                             # Tear down everything
 
 ## Cleaning Up
 
-When you're done with the workshop, destroy your AWS resources to avoid charges:
+When you're done with the workshop, destroy your AWS resources and remove the Pulumi stack:
 
 ```bash
 cd infra
-pulumi destroy
+pulumi destroy                # Tear down all AWS resources
+pulumi stack rm dev           # Remove the stack and its state
 ```
 
-This removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket) that Pulumi created. You'll be shown a preview of what will be deleted before confirming.
+`pulumi destroy` removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket). You'll be shown a preview of what will be deleted before confirming.
+
+`pulumi stack rm` removes the stack itself and its local state file. This is optional but keeps things clean.
 
 ---
 
