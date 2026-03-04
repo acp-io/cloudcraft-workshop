@@ -23,6 +23,7 @@ This workshop has two phases. You'll build the **same app twice**, with the same
 - **GitHub CLI** — `gh --version`
 - **GitHub Copilot CLI** — `copilot --version`
 - **AWS credentials** — `aws sts get-caller-identity`
+- **AWS Region** — Must be `eu-central-2` (Zurich). Set with: `pulumi config set aws:region eu-central-2`
 
 ### EC2 Quick Setup
 
