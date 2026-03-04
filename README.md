@@ -27,8 +27,7 @@ This workshop has two phases. You'll build the **same app twice**, with the same
 ### EC2 Quick Setup
 
 ```bash
-chmod +x setup.sh
-./setup.sh
+bash ./setup.sh
 source ~/.bashrc
 ```
 

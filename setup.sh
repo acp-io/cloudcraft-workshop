@@ -5,7 +5,7 @@ set -euo pipefail
 # Installs: Node.js 20 (via nvm), Pulumi CLI, GitHub CLI, GitHub Copilot CLI
 
 NODE_VERSION="20"
-GH_VERSION="2.67.0"
+GH_VERSION="2.87.3"
 
 green()  { printf '\033[0;32m%s\033[0m\n' "$*"; }
 yellow() { printf '\033[0;33m%s\033[0m\n' "$*"; }
