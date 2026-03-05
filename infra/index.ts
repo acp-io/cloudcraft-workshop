@@ -81,8 +81,9 @@ new aws.iam.RolePolicy("lambda-bedrock-policy", {
         Effect: "Allow",
         Action: ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream"],
         Resource: [
-            "arn:aws:bedrock:*::inference-profile/eu.anthropic.claude-haiku-4-5-20251001-v1:0",
-            "arn:aws:bedrock:*:*:inference-profile/eu.anthropic.claude-haiku-4-5-20251001-v1:0",
+            "arn:aws:bedrock:*::foundation-model/anthropic.claude-*",
+            "arn:aws:bedrock:*::inference-profile/eu.anthropic.claude-*",
+            "arn:aws:bedrock:*:*:inference-profile/eu.anthropic.claude-*",
           ],
       },
     ],
