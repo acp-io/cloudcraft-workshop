@@ -39,7 +39,7 @@ You have a working todo app that can **add** and **display** tasks. Your job: us
 
 ---
 
-## Feature 3: AI Categorization (Stretch Goal)
+## Feature 3: AI Categorization
 
 **As a user, I want new tasks to be automatically categorized and prioritized by AI.**
 
@@ -65,7 +65,7 @@ You have a working todo app that can **add** and **display** tasks. Your job: us
 
 ## Bonus Features
 
-Finished early or want to keep going after the workshop? Try these additional AI-powered features. There are no TODO markers for these — you'll need to figure out the implementation yourself (with your AI agent's help, of course).
+Finished early or want to keep going after the workshop? Try these additional AI-powered features. There are no TODO markers for these — you'll need to figure out the implementation yourself.
 
 ### Bonus 1: AI Task Suggestions
 
