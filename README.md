@@ -44,22 +44,22 @@ aws sts get-caller-identity  # Should show your AWS account
 
 ## Getting Started
 
-### 1. Authenticate with GitHub
+### 1. Fork the repository
+
+1. Open the workshop repository in your browser: `https://github.com/acp-io/cloudcraft-workshop`
+2. Click the **Fork** button in the top-right corner
+3. Select your personal GitHub account as the destination
+4. Wait for the fork to complete — you'll be redirected to your own copy
+
+### 2. Clone your fork
+
 
 ```bash
-gh auth login
-```
-
-Follow the prompts: select **GitHub.com**, choose **HTTPS**, and authenticate via **browser**.
-
-### 2. Fork and clone the repo
-
-```bash
-gh repo fork <org>/cloudcraft-workshop --clone
+git clone https://github.com/<your-username>/cloudcraft-workshop.git
 cd cloudcraft-workshop
 ```
 
-This creates a fork under your GitHub account and clones it locally.
+Replace `<your-username>` with your GitHub username.
 
 ### 3. Install dependencies
 
