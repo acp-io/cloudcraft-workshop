@@ -105,7 +105,7 @@ pulumi config set aws:region eu-central-2
 ```
 
 **What this does:**
-- `pulumi login --local` — stores infrastructure state on your machine (no account needed)
+- `pulumi login --local` — stores infrastructure state on this machine (no account needed)
 - `pulumi stack init dev` — creates an isolated deployment environment called "dev"
 - `pulumi config set aws:region eu-central-2` — tells Pulumi to deploy to the Zurich AWS region
 
@@ -135,14 +135,16 @@ Save these — you'll need them.
 
 ### 6. Rebuild the frontend with your API URL
 
-The frontend needs to know where your API lives. Rebuild with the API URL set:
+The frontend needs to know where your API lives. Rebuild with the API URL from step 5:
 
 ```bash
 cd ..
-NEXT_PUBLIC_API_URL=$(cd infra && pulumi stack output apiEndpoint) npm run build
+NEXT_PUBLIC_API_URL=<your-api-endpoint> npm run build
 cd infra
 pulumi up -y
 ```
+
+Replace `<your-api-endpoint>` with the `apiEndpoint` value from step 5 (e.g., `https://abc123.execute-api.eu-central-2.amazonaws.com`).
 
 ### 7. Test it
 
@@ -168,7 +170,7 @@ After making changes, rebuild and redeploy:
 cd src/lambda && npm run build && cd ../../infra && pulumi up -y
 
 # After frontend changes (from project root):
-NEXT_PUBLIC_API_URL=$(cd infra && pulumi stack output apiEndpoint) npm run build
+NEXT_PUBLIC_API_URL=<your-api-endpoint> npm run build
 cd infra && pulumi up -y
 ```
 
