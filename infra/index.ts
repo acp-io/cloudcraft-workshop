@@ -86,6 +86,11 @@ new aws.iam.RolePolicy("lambda-bedrock-policy", {
             "arn:aws:bedrock:*:*:inference-profile/eu.anthropic.claude-*",
           ],
       },
+      {
+        Effect: "Allow",
+        Action: ["aws-marketplace:ViewSubscriptions", "aws-marketplace:Subscribe"],
+        Resource: "*",
+      },
     ],
   }),
 });
