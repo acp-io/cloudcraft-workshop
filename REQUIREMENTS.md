@@ -63,6 +63,46 @@ You have a working todo app that can **add** and **display** tasks. Your job: us
 
 ---
 
+## Bonus Features
+
+Finished early or want to keep going after the workshop? Try these additional AI-powered features. There are no TODO markers for these — you'll need to figure out the implementation yourself (with your AI agent's help, of course).
+
+### Bonus 1: AI Task Suggestions
+
+**As a user, I want the app to suggest new tasks based on what I already have.**
+
+#### What needs to happen
+
+- **Backend** (`src/lambda/handler.ts`): Add a `POST /suggest` endpoint. It should take the user's current todos, send them to Claude via `invokeModel()`, and ask for 3 new task suggestions. Return them as a JSON array of strings.
+- **Infrastructure** (`infra/index.ts`): Add the new `POST /suggest` route to API Gateway.
+- **Frontend**: Add a "Suggest tasks" button. When clicked, call the endpoint and display the suggestions. Let the user add them as real todos with one click.
+
+#### Acceptance criteria
+- Clicking "Suggest tasks" returns 3 relevant task suggestions from AI
+- Suggestions take existing tasks into account (not duplicates)
+- Each suggestion can be added as a real task with one click
+- If the AI call fails, handle it gracefully (empty list or error message)
+
+---
+
+### Bonus 2: AI Chat
+
+**As a user, I want to chat with an AI assistant that knows about my tasks.**
+
+#### What needs to happen
+
+- **Backend** (`src/lambda/handler.ts`): Add a `POST /chat` endpoint. It should accept a list of chat messages and the user's current todos. Build a system prompt that includes the task list, then call Claude via `invokeModelStream()` (for streaming) or `invokeModel()`. Return the AI's response.
+- **Infrastructure** (`infra/index.ts`): Add the new `POST /chat` route to API Gateway.
+- **Frontend**: Create a `ChatPanel` component — a side panel or modal where the user can type messages and see AI responses. Create a `useChat` hook to manage chat state and API calls. Add a toggle button to open/close the chat panel.
+
+#### Acceptance criteria
+- Users can open a chat panel and have a conversation with the AI
+- The AI is aware of the user's current tasks and can reference them
+- Chat history is maintained during the session
+- The UI handles loading states while waiting for AI responses
+
+---
+
 ## Hints
 
 - Look for `TODO` comments in the code — they mark exactly where changes are needed

@@ -12,6 +12,8 @@ Build a cloud-based task manager on AWS — using AI as your coding partner.
 
 Along the way you'll discover how serverless cloud services work together: DynamoDB, Lambda, API Gateway, S3, and Bedrock.
 
+Finished early? There are **bonus features** in the requirements too — AI-powered task suggestions and an AI chat assistant.
+
 ### Architecture
 
 ```
@@ -226,6 +228,12 @@ pulumi stack rm dev      # Remove the stack and its state
 ```
 
 `pulumi destroy` removes all AWS resources (DynamoDB table, Lambda, API Gateway, S3 bucket). You'll be shown a preview before confirming.
+
+---
+
+## Running on Your Own Machine
+
+Want to run this workshop outside of the provided cloud environment? See the [Self-Hosted Setup Guide](./SELF_HOSTED_SETUP.md) for instructions on setting up your own AWS account and local tools.
 
 ---
 
