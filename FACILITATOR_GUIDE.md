@@ -63,8 +63,10 @@ Verify: `node --version`, `pulumi version`, `gh --version`, `aws sts get-caller-
 Walk students through their first Pulumi deployment step by step. This is hands-on — don't rush it.
 
 **1. Fork and clone** (if not already done):
+
+Students should have already forked via the GitHub web UI and cloned their fork:
 ```bash
-gh repo fork <org>/cloudcraft-workshop --clone
+git clone https://github.com/<your-username>/cloudcraft-workshop.git
 cd cloudcraft-workshop
 ```
 
@@ -110,9 +112,11 @@ pulumi stack output siteUrl
 **7. Rebuild frontend with the API URL:**
 ```bash
 cd ..
-NEXT_PUBLIC_API_URL=$(cd infra && pulumi stack output apiEndpoint) npm run build
+NEXT_PUBLIC_API_URL=<your-api-endpoint> npm run build
 cd infra && pulumi up -y
 ```
+
+Replace `<your-api-endpoint>` with the `apiEndpoint` value from step 6.
 
 **8. Test it:**
 > "Open the site URL in your browser. Add a todo. It should appear in the list. That's your app running on AWS!"
@@ -165,7 +169,7 @@ Students should arrive at something like:
 cd src/lambda && npm run build && cd ../../infra && pulumi up -y
 
 # After frontend changes (run from project root):
-NEXT_PUBLIC_API_URL=$(cd infra && pulumi stack output apiEndpoint) npm run build
+NEXT_PUBLIC_API_URL=<your-api-endpoint> npm run build
 cd infra && pulumi up -y
 ```
 
