@@ -172,7 +172,7 @@ new aws.s3.BucketWebsiteConfigurationV2("taskflow-site-website", {
   errorDocument: { key: "index.html" },
 });
 
-new aws.s3.BucketPublicAccessBlock("taskflow-site-public-access", {
+const publicAccessBlock = new aws.s3.BucketPublicAccessBlock("taskflow-site-public-access", {
   bucket: siteBucket.id,
   blockPublicAcls: false,
   blockPublicPolicy: false,
@@ -195,7 +195,7 @@ new aws.s3.BucketPolicy("taskflow-site-policy", {
       ],
     })
   ),
-});
+}, { dependsOn: [publicAccessBlock] });
 
 const outDir = path.resolve(__dirname, "../out");
 
